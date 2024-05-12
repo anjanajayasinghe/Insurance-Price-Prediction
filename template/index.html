@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/style.css') }}">
+    <title>Insurance Charges Predictor</title>
+</head>
+<body>
+    
+    <div class="background">
+        <div class="wrapper">
+            <div class="title">Insurance Premium Predictor</div>
+            <form action="/" method="POST">
+                <div class="form">
+                    <div class="inputfield">
+                        <label for="age">Age</label>
+                        <input class="input" type="number" name="age" required>
+                    </div>
+                    <div class="inputfield">
+                        <label for="sex">Gender</label>
+                        <div class = "custom_select">
+                            <select name="sex" id="sex">
+                                <option value="" selected hidden>Select</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="inputfield">
+                        <label for="bmi">BMI</label>
+                        <input class="input" type="float" name="bmi" required>
+                    </div>
+                    
+                    <div class="inputfield">
+                        <label for="children">No of Children</label>
+                        <div class = "custom_select">
+                            <select name="children" id="children">
+                                <option value="" selected hidden>Select</option>
+                                <option value="0">No</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div> 
+                    
+                    <div class="inputfield">
+                        <label for="region">Region</label>
+                        <div class = "custom_select">
+                            <select name="region" id="region">
+                                <option value="" selected hidden>Select</option>
+                                <option value="southeast">South East</option>
+                                <option value="southwest">South West</option>
+                                <option value="northwest">North West</option>
+                                <option value="northeast">North East</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="check">   
+                        <div>
+                            <label for="smoker">Do you smoke?</label>
+                            <input type="checkbox" name="smoke">
+                        </div>
+                    </div>               
+                    <div class="inputfield">
+                        <input class="btn" type="submit" value="Predict Premium" name="act" id='submit' disabled disabled1 disabled2>
+                    </div>
+                </div>
+            </form>
+
+            <div class="result">
+                {% if pred_value != 0 %}
+                <p>Estimated Premium : $ {{pred_value}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const select = document.getElementById('region');
+    const submitButton = document.getElementById('submit');
+    document.getElementById('region').addEventListener('change', () => {
+    if (select.value =="") {
+        submitButton.disabled = true;
+    } else {
+        submitButton.disabled = false;
+    }
+    });
+
+    const select1 = document.getElementById('sex');
+    document.getElementById('sex').addEventListener('change', () => {
+    if (select1.value =="") {
+        submitButton.disabled1 = true;
+    } else {
+        submitButton.disabled1 = false;
+    }
+    });
+  
+    const select2 = document.getElementById('children');
+    document.getElementById('children').addEventListener('change', () => {
+    if (select2.value == "") {
+        submitButton.disabled2 = true;
+    } else {
+        submitButton.disabled2 = false;
+    }
+    });
+</script>
+</html>
